@@ -1,0 +1,49 @@
+{
+ "properties": {
+  "displayName": "A MFA deve ser habilitada nas contas com permissões de gravação na sua assinatura",
+  "policyType": "BuiltIn",
+  "mode": "All",
+  "description": "Autenticação Multifator (MFA) deve estar habilitada para todas as contas de assinatura com privilégios de gravação para impedir uma violação de contas ou recursos.",
+  "metadata": {
+   "version": "3.0.0",
+   "category": "Security Center"
+  },
+  "parameters": {
+   "effect": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Efeito",
+     "description": "Habilitar ou desabilitar a execução da política"
+    },
+    "allowedValues": [
+     "AuditIfNotExists",
+     "Disabled"
+    ],
+    "defaultValue": "AuditIfNotExists"
+   }
+  },
+  "policyRule": {
+   "if": {
+    "field": "type",
+    "equals": "Microsoft.Resources/subscriptions"
+   },
+   "then": {
+    "effect": "[parameters('effect')]",
+    "details": {
+     "type": "Microsoft.Security/assessments",
+     "name": "57e98606-6b1e-6193-0e3d-fe621387c16b",
+     "existenceCondition": {
+      "field": "Microsoft.Security/assessments/status.code",
+      "in": [
+       "NotApplicable",
+       "Healthy"
+      ]
+     }
+    }
+   }
+  }
+ },
+ "id": "/providers/Microsoft.Authorization/policyDefinitions/9297c21d-2ed6-4474-b48f-163f75654ce3",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "9297c21d-2ed6-4474-b48f-163f75654ce3"
+}
